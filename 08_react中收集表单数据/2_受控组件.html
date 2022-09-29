@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script src="../js/prop-types.js"></script>
+
+  <script type="text/babel">
+    class Login extends React.Component{
+      state = {
+        username: '',
+        password: ''
+      }
+
+      // 保存用户名
+      getUserName = (e) => {
+        this.setState({username: e.target.value})
+      }
+      // 保存用户密码
+      getPassword = (e) => {
+        this.setState({password: e.target.value})
+      }
+
+      // 表单提交的回调
+      handleSubmit = (e) => {
+        e.preventDefault();
+        const {username, password} = this
+        alert(`用户名为：${username}---用户密码为：${password}`)
+      }
+
+      render() {
+        return (
+          <form action="http://atguigu.com" onSubmit={this.handleSubmit}>
+            用户名: <input type="text" name="userName" onChange={this.getUserName} />
+            密码: <input type="password" name="password" onChange={this.getPassword}/>
+            <button>登录</button>
+            </form>
+        )
+      }
+    }
+
+    ReactDOM.render(<Login/>, document.querySelector("#test"))
+  </script>
+</body>
+</html>

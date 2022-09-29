@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+
+  <script type="text/babel">
+    class Weather extends React.Component {
+      // 构造器执行  1  次
+      constructor(props) {
+        super(props)
+        this.state = { 
+          isHot: true,
+          wind: '暴风雨'
+        }
+        this.hot = this.hot.bind(this)
+      }
+
+      // render调用 1 + n 次
+      render() {
+        const {isHot, wind} = this.state
+        return (
+          <div>
+            <h3 onClick={this.hot}>今天天气很{isHot ? '炎热': '寒冷'}, {wind}</h3>  
+          </div>
+        )
+      }
+
+      // 调用 n 次---点几次触发几次
+      hot() {
+        console.log(this);
+        // 状态state不可以直接更改
+        // this.state.isHot = !this.state.isHot
+        const {isHot} = this.state
+        this.setState({isHot: !isHot})
+      }
+    }
+
+    ReactDOM.render(<Weather/>, document.querySelector("#test"))
+  </script>
+</body>
+</html>
